@@ -22,11 +22,12 @@ __version__ = "0.01a"
 
 ##WSDL = "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba?wsdl"
 LOCATION = "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba"
-ACTION = "http://dgi.gub.uyaction/AWS_EFACTURA.EFACRECEPCIONREPORTE"
-
+ACTION = "http://dgi.gub.uyaction/"
+        #"http://dgi.gub.uyaction/AWS_EFACTURA.EFACRECEPCIONSOBRE"
 
 import xml.dom.minidom
 from pysimplesoap.client import SoapClient, SimpleXMLElement
+from pysimplesoap.wsse import BinaryTokenSignature
 
 # Por el momento se utilizan llamadas crudas (RAW) y no se parsea el WSDL
 ##client = SoapClient(wsdl=wsdl, cache="cache")
@@ -44,18 +45,26 @@ client = SoapClient(LOCATION, ACTION,
 
 # leer los datos del comprobante, como CDATA según el ejemplo
 cdata = xml.dom.minidom.CDATASection()
-cdata.data = open("dgicfe_uy.xml").read()
+cdata.data = "Mariano!" #open("dgicfe_uy.xml").read()
 
 # NOTA: se podria usar SimpleXMLElement para armar el xml pythonicamente
 
 # construir los parámetros de la llamada al webservice (requerimiento):
-param = SimpleXMLElement("<WS_eFactura.EFACRECEPCIONSOBRE/>", 
-                         namespace="http://dgi.gub.uy", prefix="dgi")
-data_in = param.add_child("dataIn", ns=True)
+param = SimpleXMLElement(
+    """<dgi:WS_eFactura.EFACRECEPCIONSOBRE xmlns:dgi="http://dgi.gub.uy"/>""", 
+    namespace="http://dgi.gub.uy", prefix="dgi")
+data_in = param.add_child("Datain", ns=True)
 data_in.add_child("xmlData", cdata, ns=True)
 
-# TODO: agregar seguridad WSSE (mensaje firmado)
+# agregar seguridad WSSE (mensaje firmado)
+
+plugin = BinaryTokenSignature(certificate="zunimercado.crt", 
+                              private_key="no_encriptada.key", 
+                              password=None)
+client.plugins.append(plugin)
 
 # llamar al método remoto
-ret = client.call("WS_eFactura.EFACRECEPCIONSOBRE", param)
- 
+ret = client.call("AWS_EFACTURA.EFACRECEPCIONSOBRE", param)
+
+# extraer la respuesta
+res = str(ret.Dataout.xmlData)
