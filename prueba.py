@@ -16,7 +16,7 @@
 __author__ = "Mariano Reingart <reingart@gmail.com>"
 __copyright__ = "Copyright (C) 2014 Mariano Reingart"
 __license__ = "GPL 3.0+"
-__version__ = "0.01a"
+__version__ = "0.2"
 
 # Constantes para configurar el ambiente (testing o productivo):
 
