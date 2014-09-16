@@ -2,28 +2,9 @@
 <DGICFE:EnvioCFE version="1.0" xsi:schemaLocation="http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd" xmlns:DGICFE="http://cfe.dgi.gub.uy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <DGICFE:Caratula version="1.0">
         <DGICFE:RutReceptor>214844360018</DGICFE:RutReceptor>
-        <DGICFE:RUCEmisor>219999820013</DGICFE:RUCEmisor>
+        <DGICFE:RUCEmisor>160010030018</DGICFE:RUCEmisor>
         <DGICFE:Idemisor>3009</DGICFE:Idemisor>
         <DGICFE:CantCFE>1</DGICFE:CantCFE>
-        <DGICFE:Fecha>2011-10-01T13:10:00-03:00</DGICFE:Fecha>
-        <DGICFE:X509Certificate>MIIFrDCCA5SgAwIBAgIQas+Rf7PxwFxNudVRjoOzEjANBgkqhkiG9w0BAQUFADB6MQswCQYDVQQGEwJVWTErM
-CkGA1UECgwiQURNSU5JU1RSQUNJT04gTkFDSU9OQUwgREUgQ09SUkVPUzEfMB0GA1UECwwWU0VSVklDSU9TIEVMRUNUUk9OSUNPUzEdMBsGA
-1UEAwwUQ29ycmVvIFVydWd1YXlvIC0gQ0EwHhcNMTEwNDI4MjEwMDAxWhcNMTIwNDI4MjEwMDAxWjCBxzEiMCAGCSqGSI b3DQEJARYTam1vbnRhb
-mVAZGdpLmd1Yi51eTEfMB0GA1UECwwWQU5BTElTSVMgREUgUFJPRFVDQ0lPTjEhMB8GA1UECgwYREdJLVBSVUVCQSBTRVJWSUNJT 1MgV0VCM
-RMwEQYDVQQIDApNb250ZXZpZGVvMQswCQYDVQQGEwJVWTEYMBYGA1UEBRMPUlVDMjE5OTk5ODIwMDEzMSEwHwYDVQQDDBhER0ktU FJVRUJ
-BIFNFUlZJQ0lPUyBXRUIwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMcMcu70s0RQkD6ifYBGXwATovTxxA/Hjc8WKM16yJkz63d0eSTjjREYmM
-87g6NRacADy9LZRyENiRPjsBI+Tw9PHR/7g+frTIS+vIQZ0+f9Rq1q2uxvw8TKoO9FvcrBabdl9dUBIrJEPa20wj6U+dupTZ66bD 5uFXBUsKo2sZujAgMBAAGj
-ggFiMIIBXjAeBgNVHREEFzAVgRNqbW9udGFuZUBkZ2kuZ3ViLnV5MAwGA1UdEwEB/wQCMAAwDgYDVR0PAQH/BAQDAgP4MB0GA1UdJQQWMBQGC
-CsGAQUFBwMCBggrBgEFBQcDBDARBglghkgBhvhCAQEEBAMCBaAwHQYDVR0OBBYEFP0YQfFQvej6szyGhKlpNI0tESi5MB8GA1UdI wQYMBaAFCW
-P30Mvjmq6C75GXFdQk7dRvvzZMFQGA1UdIARNMEswSQYMKwYBBAGB9U8BAQEEMDkwNwYIKwYBBQUHAgEWK2h0dHA6Ly93d3cuY29ycmVvLmNv
-bS51eS9jb3JyZW9jZXJ0L2Nwcy5wZGYwGAYNKwYBBAGB9U8BAQEEAQQHDAVEaXNjbzA8BgNVHR8ENTAzMDGgL6AthitodHRwOi8vd3d3LmNvcnJlb
-y5jb20udXkvQ29ycmVvQ2VydC9hbmMuY3JsMA0GCSqGSIb3DQEBBQUAA4ICAQA01MEJsZ8VXJIybZQ0NlBJPXz7n8GbTf41Aq4lW xLI5rBWJD1uyWUdz
-2jUD0DuqflTAGknphzxn49QACCTA1Pv0aZ6hnK04uI9j7UJe4LiVx3aWbpLRBCnYrIs+QU2pyClEM4bNPt0BU2DG+Q9k9SeCDQ8VD7hiD2W/aK8HLo6EVLA
-Ewrl3pTums2dwxtO1KKPw6OBbYYitCjR5j6Hy5q1+fMTFXmx0vo+ZYFOl8DVoSp6OQJd2mcaL0CNVWI9sOYRkJKEoELIJDSnIMKkUqgN2ilg05Dqcl/TDj2I5
-VfPLXZpnpuQbb6ADjEOtMzlkfe2EFemn0s/+2Hn97h5rtJMcjTuUhh937JZPWnD1XQTxICjS3ql1nSwbnJz9bk8PN/j8cK4Kw+xipGo7pRxITFKUHmOIXsj05tH
-3kFWf8htdU/4rIyrvzJ3xUhita78SHaJMALQa4AGxmSxIEvej0+qyrxx4geMkzb/n5t3JAAluxW2ja3f/FrXMuwT7iKebreMS44F O0maMpP29SW94G8yClumghtU/
-6LI67oHxhpUNkCQ3UV4JaI6wEZcgV5KLXm9rr1i/hMKV5FspQcYg36qdeRz/N4DwuorVwZuTsXCIMwcKQCkzu1oUSkvO3PE5cCRnu9cyJ3GzPfUO0T8mrC
-mI2XwISAvkuLs3kd6FeRBAw==</DGICFE:X509Certificate>
     </DGICFE:Caratula>
     <ns0:CFE version="1.0" xmlns:ns0="http://cfe.dgi.gub.uy">
         <ns0:eTck>
@@ -37,7 +18,7 @@ mI2XwISAvkuLs3kd6FeRBAw==</DGICFE:X509Certificate>
                     <ns0:FmaPago>1</ns0:FmaPago>
                 </ns0:IdDoc>
                 <ns0:Emisor>
-                    <ns0:RUCEmisor>219999820013</ns0:RUCEmisor>
+                    <ns0:RUCEmisor>160010030018</ns0:RUCEmisor>
                     <ns0:RznSoc>DGI-PRUEBA SERVICIOS WEB</ns0:RznSoc>
                     <ns0:CdgDGISucur>1</ns0:CdgDGISucur>
                     <ns0:DomFiscal>FERNANDEZ CRESPO AVDA. DANIEL 1534</ns0:DomFiscal>
@@ -87,28 +68,5 @@ mI2XwISAvkuLs3kd6FeRBAw==</DGICFE:X509Certificate>
                 <ns0:FecVenc>2013-11-07</ns0:FecVenc>
             </ns0:CAEData>
         </ns0:eTck>
-        <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
-            <SignedInfo>
-                <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-                <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-                <Reference URI="">
-                    <Transforms>
-                        <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
-                        <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
-                    </Transforms>
-                    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-                    <DigestValue>tW2WWjTbBa7zn/wX44WxBZmLxlc=</DigestValue>
-                </Reference>
-            </SignedInfo>
-            <SignatureValue>rYtRK+rUzRLvHBZtt1dYe5KgIT7lmdTWuYW1MBXWDO0GjA0VPIaga0f/tFdGzO3bI95p/N+F6f/yo0Dry9fcGw2b+q1p3fRsGiR8zVVpH1hgNsXltFspKEwFcYQ/S5CXi0/WAMAmLAHYDuwPi7SetRPXDlmumCcG4BbwDUt0FBo=</SignatureValue>
-            <KeyInfo>
-                <X509Data>
-                    <X509IssuerSerial>
-                        <X509IssuerName>CN=Correo Uruguayo - CA, OU=SERVICIOS ELECTRONICOS, O=ADMINISTRACION NACIONAL DE CORREOS, C=UY</X509IssuerName>
-                        <X509SerialNumber>141975924069977036928305508705255011090</X509SerialNumber>
-                    </X509IssuerSerial>
-                </X509Data>
-            </KeyInfo>
-        </Signature>
     </ns0:CFE>
 </DGICFE:EnvioCFE>

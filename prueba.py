@@ -16,7 +16,7 @@
 __author__ = "Mariano Reingart <reingart@gmail.com>"
 __copyright__ = "Copyright (C) 2014 Mariano Reingart"
 __license__ = "GPL 3.0+"
-__version__ = "0.3"
+__version__ = "0.4"
 
 # Constantes para configurar el ambiente (testing o productivo):
 
@@ -25,9 +25,12 @@ LOCATION = "https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba"
 ACTION = "http://dgi.gub.uyaction/"
         #"http://dgi.gub.uyaction/AWS_EFACTURA.EFACRECEPCIONSOBRE"
 
+import datetime
 import xml.dom.minidom
 from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.wsse import BinaryTokenSignature
+from pysimplesoap import xmlsec
+
 
 # Por el momento se utilizan llamadas crudas (RAW) y no se parsea el WSDL
 ##client = SoapClient(wsdl=wsdl, cache="cache")
@@ -43,11 +46,34 @@ client = SoapClient(LOCATION, ACTION,
 # Procedimiento tentativo:
 # ========================
 
-# leer los datos del comprobante, como CDATA según el ejemplo
-cdata = xml.dom.minidom.CDATASection()
-cdata.data = "Mariano!" #open("dgicfe_uy.xml").read()
+# leer los datos del comprobante
+# NOTA: se podría usar más SimpleXMLElement para armar el xml pythonicamente
 
-# NOTA: se podria usar SimpleXMLElement para armar el xml pythonicamente
+cfe = SimpleXMLElement(open("dgicfe_uy.xml").read())
+caratula = cfe("DGICFE:Caratula")
+
+# establecer la fecha actual
+setattr(caratula, "DGICFE:Fecha", 
+                  datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S-03:00"))#utcnow().strftime("%Y-%m-%dT%H:%M:%S"))
+
+# leer el certificado del emisor y agregarlo
+cert_pem =  ''.join([line for line in open("zunimercado.crt")
+                                         if not line.startswith("---")])
+setattr(caratula, "DGICFE:X509Certificate", cert_pem)
+
+# firmar el xml y agregar la firma
+vars = xmlsec.rsa_sign(cfe.as_xml(), '', "no_encriptada.key", "password",
+                sign_template=xmlsec.SIGN_ENV_TMPL, c14n_exc=False)
+firma_xml = (xmlsec.SIGNATURE_TMPL % vars)
+cfe("ns0:CFE").import_node(SimpleXMLElement(firma_xml))
+
+# guardo el xml firmado para depuración
+open("test.xml", "w").write(cfe.as_xml())
+print cfe.as_xml()
+
+# serializar CDATA según el ejemplo
+cdata = xml.dom.minidom.CDATASection()
+cdata.data = cfe.as_xml()
 
 # construir los parámetros de la llamada al webservice (requerimiento):
 param = SimpleXMLElement(
