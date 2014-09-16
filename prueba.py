@@ -16,7 +16,7 @@
 __author__ = "Mariano Reingart <reingart@gmail.com>"
 __copyright__ = "Copyright (C) 2014 Mariano Reingart"
 __license__ = "GPL 3.0+"
-__version__ = "0.4"
+__version__ = "0.5"
 
 # Constantes para configurar el ambiente (testing o productivo):
 
@@ -104,6 +104,23 @@ ret = client.call("AWS_EFACTURA.EFACRECEPCIONSOBRE", param)
 
 # extraer la respuesta (xml embebido)
 res = str(ret.Dataout.xmlData)
+print res
 
 # procesar el xml con (por ej. con SimpleXMLElement)
-print res
+ack = SimpleXMLElement(res)
+# analizar elementos de ACKSobre:
+caratula = ack("Caratula")
+print caratula.RUCReceptor      # 214844360018
+print caratula.RUCEmisor        # 160010030018
+print caratula.IDRespuesta      # 4214629
+print caratula.NomArch
+print caratula.FecHRecibido     # 2014-09-16T04:36:33-03:00
+print caratula.IDEmisor         # 3009
+print caratula.IDReceptor       # 4214629
+print caratula.CantidadCFE      # 1
+print caratula.Tmst             # 2014-09-16T04:36:35-03:00
+for detalle in ack("Detalle"):
+    print detalle.Estado        # AS: Sobre Recibido, BS: Sobre Rechazado
+    param = detalle.ParamConsulta
+    print param.Token           # 1Yw+OMee3hLU8ubi06HekDIVV1FMnCjjiltMMBQfY...
+    print param.Fechahora       # 2014-09-16T04:41:35-03:00
