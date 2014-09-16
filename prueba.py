@@ -57,8 +57,9 @@ setattr(caratula, "DGICFE:Fecha",
                   datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S-03:00"))#utcnow().strftime("%Y-%m-%dT%H:%M:%S"))
 
 # leer el certificado del emisor y agregarlo
-cert_pem =  ''.join([line for line in open("zunimercado.crt")
-                                         if not line.startswith("---")])
+cert_lines = open("zunimercado.crt").readlines()
+cert_pem =  ''.join([line for line in cert_lines
+                          if not line.startswith("---")])
 setattr(caratula, "DGICFE:X509Certificate", cert_pem)
 
 # preparar la plantilla para la info de firma con los namespaces padres (CFE)
@@ -68,8 +69,13 @@ plantilla["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
 #plantilla["xsi:schemaLocation"] = "http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd"
 
 # firmar el CFE, reemplazar valores en la plantilla y agregar la firma al CFE
+# NOTA: para verificar la firma usar la plantilla RSA para KeyInfo (comentado)
 vars = xmlsec.rsa_sign(cfe.as_xml(), '', "no_encriptada.key", "password",
-                       sign_template=plantilla.as_xml(), c14n_exc=False)
+                       sign_template=plantilla.as_xml(), c14n_exc=False,
+                       cert="".join(cert_lines),
+                       key_info_template=xmlsec.KEY_INFO_X509_TMPL,
+                       #key_info_template=xmlsec.KEY_INFO_RSA_TMPL,
+                      )
 firma_xml = (xmlsec.SIGNATURE_TMPL % vars)
 cfe("ns0:CFE").import_node(SimpleXMLElement(firma_xml))
 
