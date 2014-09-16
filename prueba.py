@@ -16,7 +16,7 @@
 __author__ = "Mariano Reingart <reingart@gmail.com>"
 __copyright__ = "Copyright (C) 2014 Mariano Reingart"
 __license__ = "GPL 3.0+"
-__version__ = "0.2"
+__version__ = "0.3"
 
 # Constantes para configurar el ambiente (testing o productivo):
 
@@ -56,15 +56,28 @@ param = SimpleXMLElement(
 data_in = param.add_child("Datain", ns=True)
 data_in.add_child("xmlData", cdata, ns=True)
 
-# agregar seguridad WSSE (mensaje firmado)
+# agregar seguridad WSSE (mensaje firmado digitalmente para autenticacion)
+#     usar el certificado unico asociado al RUT emisor emitidos por la 
+#     Administración Nacional de Correos (CA: autoridad certificadora actual)
 
-plugin = BinaryTokenSignature(certificate="zunimercado.crt", 
+plugin = BinaryTokenSignature(certificate="zunimercado.crt",
                               private_key="no_encriptada.key", 
-                              password=None)
-client.plugins.append(plugin)
+                              password=None,
+                              cacert="CorreoUruguayoCA.crt",
+                              )
+client.plugins += [plugin]
 
 # llamar al método remoto
 ret = client.call("AWS_EFACTURA.EFACRECEPCIONSOBRE", param)
 
-# extraer la respuesta
+# si no hay excepciones, la comunicación ha sido exitosa ("canal seguro"):
+#  * DGI acepto la firma digital para el requerimiento (crt)
+#  * La respuesta ha sido firmada por un certificado válido (CA)
+# TODO: revisar que el certificado de la respuesta sea de DGI (ambiente ok):
+#  * RUT 219999830019 en pruebas, RUT 214844360018 en producción
+
+# extraer la respuesta (xml embebido)
 res = str(ret.Dataout.xmlData)
+
+# procesar el xml con (por ej. con SimpleXMLElement)
+print res
