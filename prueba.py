@@ -61,9 +61,15 @@ cert_pem =  ''.join([line for line in open("zunimercado.crt")
                                          if not line.startswith("---")])
 setattr(caratula, "DGICFE:X509Certificate", cert_pem)
 
-# firmar el xml y agregar la firma
+# preparar la plantilla para la info de firma con los namespaces padres (CFE)
+plantilla = SimpleXMLElement(xmlsec.SIGN_ENV_TMPL)
+plantilla["xmlns:DGICFE"] = plantilla["xmlns:ns0"] = "http://cfe.dgi.gub.uy"
+plantilla["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
+#plantilla["xsi:schemaLocation"] = "http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd"
+
+# firmar el CFE, reemplazar valores en la plantilla y agregar la firma al CFE
 vars = xmlsec.rsa_sign(cfe.as_xml(), '', "no_encriptada.key", "password",
-                sign_template=xmlsec.SIGN_ENV_TMPL, c14n_exc=False)
+                       sign_template=plantilla.as_xml(), c14n_exc=False)
 firma_xml = (xmlsec.SIGNATURE_TMPL % vars)
 cfe("ns0:CFE").import_node(SimpleXMLElement(firma_xml))
 
