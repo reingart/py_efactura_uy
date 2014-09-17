@@ -31,6 +31,10 @@ from pysimplesoap.client import SoapClient, SimpleXMLElement
 from pysimplesoap.wsse import BinaryTokenSignature
 from pysimplesoap import xmlsec
 
+# El namespace relativo "DGI_Modernizacion_Consolidado" hace fallar a libxml2
+# con la siguiente excepción por estar deprecado en el estándar XML c14n:
+#   lxml.etree.C14NError: Relative namespace UR is invalid here : (null)
+xmlsec.lxml = None                  # deshabilitar lxml y usar c14n.py
 
 # Por el momento se utilizan llamadas crudas (RAW) y no se parsea el WSDL
 ##client = SoapClient(wsdl=wsdl, cache="cache")
