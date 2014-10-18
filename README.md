@@ -29,7 +29,6 @@ Instalar la versión de desarrollo de pysimplesoap (que tiene soporte para cdata
  * Descomprimir
  * Ejecutar `python setup.py`
 
-
 Estado / status:
 -----------------
 
@@ -82,3 +81,140 @@ https://github.com/reingart/pyafipws/blob/master/wsmtx.py
 
 Fijense que CrearFactura, AgregarIVA, AgregarItem van creando el diccionario interno, y recien en AutorizarComprobante se rearma la estructura del diccionario que pide AFIP y serializa a xml
 Como podrán ver, no hay mucha lógica más que controlar los campos nulos o aquellos que deben o no enviarse dependiendo de cierto tipo de datos.
+
+Ejemplo / example:
+------------------
+
+```
+reingart@s5ultra:~/py_efactura_uy$ python prueba.py
+INFO:pysimplesoap.client:POST https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba
+DEBUG:pysimplesoap.client:SOAPAction: "http://dgi.gub.uyaction/AWS_EFACTURA.EFACRECEPCIONSOBRE"
+Content-length: 11222
+Content-type: text/xml; charset="UTF-8"
+DEBUG:pysimplesoap.client:
+<?xml version="1.0" encoding="UTF-8"?><DGICFE:EnvioCFE version="1.0" xmlns:DGICFE="http://cfe.dgi.gub.uy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd">
+    <DGICFE:Caratula version="1.0">
+        <DGICFE:RutReceptor>214844360018</DGICFE:RutReceptor>
+        <DGICFE:RUCEmisor>160010030018</DGICFE:RUCEmisor>
+        <DGICFE:Idemisor>3009</DGICFE:Idemisor>
+        <DGICFE:CantCFE>1</DGICFE:CantCFE>
+    <DGICFE:Fecha>2014-10-18T14:14:12-03:00</DGICFE:Fecha><DGICFE:X509Certificate>MIIFjTCCA3WgAwIBAgIQMQXIJY3LXBdT8m...
+</DGICFE:X509Certificate></DGICFE:Caratula>
+    <ns0:CFE version="1.0" xmlns:ns0="http://cfe.dgi.gub.uy">
+        <ns0:eTck>
+            <ns0:TmstFirma>2012-02-08T09:48:51Z</ns0:TmstFirma>
+            <ns0:Encabezado>
+                <ns0:IdDoc>
+                    <ns0:TipoCFE>101</ns0:TipoCFE>
+                    <ns0:Serie>A</ns0:Serie>
+                    <ns0:Nro>1</ns0:Nro>
+                    <ns0:FchEmis>2011-11-08</ns0:FchEmis>
+                    <ns0:FmaPago>1</ns0:FmaPago>
+                </ns0:IdDoc>
+                <ns0:Emisor>
+                    <ns0:RUCEmisor>160010030018</ns0:RUCEmisor>
+                    <ns0:RznSoc>DGI-PRUEBA SERVICIOS WEB</ns0:RznSoc>
+                    <ns0:CdgDGISucur>1</ns0:CdgDGISucur>
+                    <ns0:DomFiscal>FERNANDEZ CRESPO AVDA. DANIEL 1534</ns0:DomFiscal>
+                    <ns0:Ciudad>MONTEVIDEO</ns0:Ciudad>
+                    <ns0:Departamento>MONTEVIDEO</ns0:Departamento>
+                </ns0:Emisor>
+                <ns0:Totales>
+                    <ns0:TpoMoneda>UYU</ns0:TpoMoneda>
+                    <ns0:MntTotal>5280</ns0:MntTotal>
+                    <ns0:CantLinDet>3</ns0:CantLinDet>
+                    <ns0:MntPagar>5280</ns0:MntPagar>
+                </ns0:Totales>
+            </ns0:Encabezado>
+            <ns0:Detalle>
+                <ns0:Item>
+                    <ns0:NroLinDet>1</ns0:NroLinDet>
+                    <ns0:IndFact>3</ns0:IndFact>
+                    <ns0:NomItem>aaa</ns0:NomItem>
+                    <ns0:Cantidad>20</ns0:Cantidad>
+                    <ns0:UniMed>KG</ns0:UniMed>
+                    <ns0:PrecioUnitario>230</ns0:PrecioUnitario>
+                    <ns0:MontoItem>4600</ns0:MontoItem>
+                </ns0:Item>
+                <ns0:Item>
+                    ...
+                </ns0:Item>
+            </ns0:Detalle>
+            <ns0:CAEData>
+                <ns0:CAE_ID>90110001945</ns0:CAE_ID>
+                <ns0:DNro>1</ns0:DNro>
+                <ns0:HNro>100</ns0:HNro>
+                <ns0:FecVenc>2013-11-07</ns0:FecVenc>
+            </ns0:CAEData>
+        </ns0:eTck>
+    <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#" xmlns:DGICFE="http://cfe.dgi.gub.uy" xmlns:ns0="http://cfe.dgi.gub.uy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+  <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <Reference URI="">
+    <Transforms>
+       <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+       <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+    </Transforms>
+    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <DigestValue>MMjfRo/ni4gRbKqsqr03bRcZz0I=</DigestValue>
+  </Reference>
+</SignedInfo>
+<SignatureValue>iPCP1IGdL+n3/8bESQpn2WUY1VYotLOeyqz0DBdXnXGvR46ofLwyOfRLOsyRMgVQVZn7VffZb2zy12/+UK2LYMNO7No7sD0iFIoCubXZRe59dFOh4eJga/SkwbScAEQJ40/Xjgabcurhj0DGmoVxFeIzmUiGdlpMlCb0Wcim2IE=</SignatureValue>
+
+<KeyInfo>
+    <X509Data>
+        <X509IssuerSerial>
+            <X509IssuerName>C=UY, O=ADMINISTRACION NACIONAL DE CORREOS, OU=SERVICIOS ELECTRONICOS, CN=Correo Uruguayo - CA</X509IssuerName>
+            <X509SerialNumber>65162192734999528486526452739173670710</X509SerialNumber>
+        </X509IssuerSerial>
+    </X509Data>
+</KeyInfo>
+
+</Signature></ns0:CFE>
+</DGICFE:EnvioCFE>
+
+DEBUG:pysimplesoap.client:status: 200
+x-client-ip: 190.50.167.167
+content-language: en-US
+x-backside-transport: OK OK
+transfer-encoding: chunked
+set-cookie: JSESSIONID=0000cggWpfP...:-1; Path=/wseprueba
+expires: Sat, 18 Oct 2014 17:14:11 GMT
+server: IBM_HTTP_Server
+last-modified: Sat, 18 Oct 2014 17:14:11 GMT
+connection: Keep-Alive
+pragma: no-cache
+cache-control: max-age=0, no-cache, no-store, must-revalidate
+date: Sat, 18 Oct 2014 17:14:11 GMT
+content-type: text/xml
+
+<?xml version="1.0" encoding="UTF-8"?>
+<ACKSobre xmlns="http://cfe.dgi.gub.uy" version="1.0"><Caratula><RUCReceptor>214844360018</RUCReceptor><RUCEmisor>160010030018</RUCEmisor><IDRespuesta>4653588</IDRespuesta><NomArch/><FecHRecibido>2014-10-18T15:14:12-02:00</FecHRecibido><IDEmisor>3009</IDEmisor><IDReceptor>4653588</IDReceptor><CantidadCFE>1</CantidadCFE><Tmst>2014-10-18T15:14:50-02:00</Tmst></Caratula><Detalle><Estado>AS</Estado><ParamConsulta><Token>SgPU4KtHBLDY5Hn6Q...</Token><Fechahora>2014-10-18T15:19:50-02:00</Fechahora></ParamConsulta></Detalle><Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+<SignedInfo>
+  <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+  <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <Reference URI="">
+    <Transforms>
+      <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+      <Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+    </Transforms>
+    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <DigestValue>QeTeiLzCsxeToFRJI2CIGTgQovY=</DigestValue>
+  </Reference>
+</SignedInfo>
+    <SignatureValue>YuZ2lnMHDae4wu6q4GVp6smIwZSGHP...=</SignatureValue><KeyInfo><X509Data><X509Certificate>MIIF2TCCA8GgAwIBAgIQGA6oKNh5KNJTDMMWaR...59izKA==</X509Certificate><X509IssuerSerial><X509IssuerName>CN=Correo Uruguayo - CA, OU=SERVICIOS ELECTRONICOS, O=ADMINISTRACION NACIONAL DE CORREOS, C=UY</X509IssuerName><X509SerialNumber>31977574735792617507739371020706040120</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo></Signature></ACKSobre>
+
+214844360018
+160010030018
+4653588
+
+2014-10-18T15:14:12-02:00
+3009
+4653588
+1
+2014-10-18T15:14:50-02:00
+AS
+SgPU4KtHBLDY5Hn6QvMJAnyAyYq93msJKM...
+2014-10-18T15:19:50-02:00
+```
