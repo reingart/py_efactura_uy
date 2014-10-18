@@ -6,9 +6,9 @@ Electronic Invoice implementation for DGI (Uruguay) via WebServices
 Requerimientos / Requeriments:
 ------------------------------
 
- * La implementación de xmlsec es ad-hoc desarrollada en python (usando M2Crypto: bindings para OpenSSL).
+ * La implementación de xmlsec es ad-hoc desarrollada en python (para encriptación/firma digital usando M2Crypto: bindings para OpenSSL).
  * Se usa lxml opcionalmente, ya que si no está disponible se hace canonicalizacion por python
- * No depender de libxml2 ni libxmlsec que parecen más trabajosas y medio antiguas.
+ * No depende de libxml2 ni libxmlsec que parecen más trabajosas y medio antiguas.
  * Es necesario instalar la biblioteca [pysimplesoap](https://code.google.com/p/pysimplesoap/) y se recomienda httplib2 para un mejor manejo de las conexiones HTTP.
 
 Instalación / install
@@ -16,18 +16,18 @@ Instalación / install
 
 GNU/Linux (Debian, Ubuntu, etc.):
 ```
-sudo apt-get install python-m2crypto python-lxml python-httplib2
+sudo apt-get install python-m2crypto python-lxml python-httplib2 python-setuptools
 ```
 
 Windows:
  * M2Crypto-0.21.1-openssl-1.0.1e-py2.7-win32.zip o similar
- * 
+ * httplib2, python-lxml, etc (opcional)
 
-Instalar la versión de desarrollo de pysimplesoap (que tiene soporte para cdata, xmlsec y c14n), directamente del repositorio:
+Instalar la versión de desarrollo de pysimplesoap (que tiene soporte para cdata, xmlsec y c14n), directamente del repositorio (puede necesitar setuptools):
 
- * Bajar https://pysimplesoap.googlecode.com/archive/default.zip
- * Descomprimir
- * Ejecutar `python setup.py`
+ * https://pysimplesoap.googlecode.com/archive/default.zip
+ * unzip & cd pysimplesoap-default
+ * Ejecutar `python setup.py install `
 
 Estado / status:
 -----------------
