@@ -87,12 +87,42 @@ Ejemplo / example:
 
 ```
 reingart@s5ultra:~/py_efactura_uy$ python prueba.py
+
 INFO:pysimplesoap.client:POST https://efactura.dgi.gub.uy:6443/ePrueba/ws_eprueba
 DEBUG:pysimplesoap.client:SOAPAction: "http://dgi.gub.uyaction/AWS_EFACTURA.EFACRECEPCIONSOBRE"
 Content-length: 11222
 Content-type: text/xml; charset="UTF-8"
 DEBUG:pysimplesoap.client:
-<?xml version="1.0" encoding="UTF-8"?><DGICFE:EnvioCFE version="1.0" xmlns:DGICFE="http://cfe.dgi.gub.uy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd">
+
+<?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:dgi="http://dgi.gub.uy" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+<soapenv:Header><wsse:Security soapenv:mustUnderstand="1" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+    <wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3" wsu:Id="CertId-45851B081998E431E8132880700036719" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+MIIFjTCCA3WgAwIBAgIQMQXIJY3LXBdT8mgphlJfNjANBgkqhkiG9w0BAQUFADB6
+...
+</wsse:BinarySecurityToken>
+    <ds:Signature Id="Signature-13" xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+        <SignedInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+  <CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+  <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
+  <Reference URI="#id-14">
+    <Transforms>
+      <Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+    </Transforms>
+    <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
+    <DigestValue>4ry1RQosjhzOywKOLlaTlwoPVJo=</DigestValue>
+  </Reference>
+</SignedInfo>
+        <ds:SignatureValue>HbBMH/ZCiS6Zy78DAiY7nlnDhhq6TZpRu7Uzb+o7DFT5rxZBEUgNuXxJMu/3j8funKPkuAeIPTAL8LO68qJWve6k53fR2UzcxXt2TC1IujVwCOChW16GD1IpuhqjFx0ij/0t5puEAeRSzac9d/E77mDjHAM1lbLPkUPetBBDQ2U=</ds:SignatureValue>
+        <ds:KeyInfo Id="KeyId-45851B081998E431E8132880700036720">
+            <wsse:SecurityTokenReference wsu:Id="STRId-45851B081998E431E8132880700036821" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+                <wsse:Reference URI="#CertId-45851B081998E431E8132880700036719" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
+            </wsse:SecurityTokenReference>
+        </ds:KeyInfo>
+    </ds:Signature>
+</wsse:Security></soapenv:Header>
+<soapenv:Body wsu:Id="id-14" xmlns:dgi="http://dgi.gub.uy" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    
+<dgi:WS_eFactura.EFACRECEPCIONSOBRE xmlns:dgi="http://dgi.gub.uy"><dgi:Datain><dgi:xmlData><![CDATA[<?xml version="1.0" encoding="UTF-8"?><DGICFE:EnvioCFE version="1.0" xmlns:DGICFE="http://cfe.dgi.gub.uy" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cfe.dgi.gub.uy EnvioCFE_v1.11.xsd">
     <DGICFE:Caratula version="1.0">
         <DGICFE:RutReceptor>214844360018</DGICFE:RutReceptor>
         <DGICFE:RUCEmisor>160010030018</DGICFE:RUCEmisor>
@@ -160,19 +190,21 @@ DEBUG:pysimplesoap.client:
     <DigestValue>MMjfRo/ni4gRbKqsqr03bRcZz0I=</DigestValue>
   </Reference>
 </SignedInfo>
-<SignatureValue>iPCP1IGdL+n3/8bESQpn2WUY1VYotLOeyqz0DBdXnXGvR46ofLwyOfRLOsyRMgVQVZn7VffZb2zy12/+UK2LYMNO7No7sD0iFIoCubXZRe59dFOh4eJga/SkwbScAEQJ40/Xjgabcurhj0DGmoVxFeIzmUiGdlpMlCb0Wcim2IE=</SignatureValue>
+<SignatureValue>iPCP1IGdL+n3/8bESQpn...=</SignatureValue>
 
 <KeyInfo>
     <X509Data>
         <X509IssuerSerial>
             <X509IssuerName>C=UY, O=ADMINISTRACION NACIONAL DE CORREOS, OU=SERVICIOS ELECTRONICOS, CN=Correo Uruguayo - CA</X509IssuerName>
-            <X509SerialNumber>65162192734999528486526452739173670710</X509SerialNumber>
+            <X509SerialNumber>651621927349995...</X509SerialNumber>
         </X509IssuerSerial>
     </X509Data>
 </KeyInfo>
 
 </Signature></ns0:CFE>
-</DGICFE:EnvioCFE>
+</DGICFE:EnvioCFE>]]></dgi:xmlData></dgi:Datain></dgi:WS_eFactura.EFACRECEPCIONSOBRE></soapenv:Body>
+</soapenv:Envelope>
+
 
 DEBUG:pysimplesoap.client:status: 200
 x-client-ip: 190.50.167.167
@@ -203,7 +235,7 @@ content-type: text/xml
     <DigestValue>QeTeiLzCsxeToFRJI2CIGTgQovY=</DigestValue>
   </Reference>
 </SignedInfo>
-    <SignatureValue>YuZ2lnMHDae4wu6q4GVp6smIwZSGHP...=</SignatureValue><KeyInfo><X509Data><X509Certificate>MIIF2TCCA8GgAwIBAgIQGA6oKNh5KNJTDMMWaR...59izKA==</X509Certificate><X509IssuerSerial><X509IssuerName>CN=Correo Uruguayo - CA, OU=SERVICIOS ELECTRONICOS, O=ADMINISTRACION NACIONAL DE CORREOS, C=UY</X509IssuerName><X509SerialNumber>31977574735792617507739371020706040120</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo></Signature></ACKSobre>
+    <SignatureValue>YuZ2lnMHDae4wu6q4GVp6smIwZSGHP...=</SignatureValue><KeyInfo><X509Data><X509Certificate>MIIF2TCCA8GgAwIBAgIQGA6oKNh5KNJTDMMWaR...59izKA==</X509Certificate><X509IssuerSerial><X509IssuerName>CN=Correo Uruguayo - CA, OU=SERVICIOS ELECTRONICOS, O=ADMINISTRACION NACIONAL DE CORREOS, C=UY</X509IssuerName><X509SerialNumber>31977574735792617...</X509SerialNumber></X509IssuerSerial></X509Data></KeyInfo></Signature></ACKSobre>
 
 214844360018
 160010030018
