@@ -79,7 +79,7 @@ Pueden ver un ejemplo para el webservice WSMTXCA:
 
 https://github.com/reingart/pyafipws/blob/master/wsmtx.py
 
-Fijense que CrearFactura, AgregarIVA, AgregarItem van creando el diccionario interno, y recien en AutorizarComprobante se rearma la estructura del diccionario que pide AFIP y serializa a xml
+En ese caso, los métodos `CrearFactura`, `AgregarIVA`, `AgregarItem` van creando el diccionario interno, y recien en `AutorizarComprobante` se rearma la estructura del diccionario que pide AFIP y serializa a XML.
 Como podrán ver, no hay mucha lógica más que controlar los campos nulos o aquellos que deben o no enviarse dependiendo de cierto tipo de datos.
 
 Ejemplo / example:
@@ -112,7 +112,7 @@ MIIFjTCCA3WgAwIBAgIQMQXIJY3LXBdT8mgphlJfNjANBgkqhkiG9w0BAQUFADB6
     <DigestValue>4ry1RQosjhzOywKOLlaTlwoPVJo=</DigestValue>
   </Reference>
 </SignedInfo>
-        <ds:SignatureValue>HbBMH/ZCiS6Zy78DAiY7nlnDhhq6TZpRu7Uzb+o7DFT5rxZBEUgNuXxJMu/3j8funKPkuAeIPTAL8LO68qJWve6k53fR2UzcxXt2TC1IujVwCOChW16GD1IpuhqjFx0ij/0t5puEAeRSzac9d/E77mDjHAM1lbLPkUPetBBDQ2U=</ds:SignatureValue>
+        <ds:SignatureValue>HbBMH/ZCiS6Zy78DAiY7nln...=</ds:SignatureValue>
         <ds:KeyInfo Id="KeyId-45851B081998E431E8132880700036720">
             <wsse:SecurityTokenReference wsu:Id="STRId-45851B081998E431E8132880700036821" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
                 <wsse:Reference URI="#CertId-45851B081998E431E8132880700036719" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509v3"/>
