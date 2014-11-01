@@ -56,8 +56,8 @@ caratula = cfe("DGICFE:Caratula")
 setattr(caratula, "DGICFE:Fecha", 
                   datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S-03:00"))#utcnow().strftime("%Y-%m-%dT%H:%M:%S"))
 
-# leer el certificado del emisor y agregarlo
-cert_lines = open("zunimercado.crt").readlines()
+# leer el certificado (PEM) del emisor y agregarlo 
+cert_lines = open("certificado.crt").readlines()
 cert_pem =  ''.join([line for line in cert_lines
                           if not line.startswith("---")])
 setattr(caratula, "DGICFE:X509Certificate", cert_pem)
@@ -70,7 +70,7 @@ plantilla["xmlns:xsi"] = "http://www.w3.org/2001/XMLSchema-instance"
 
 # firmar el CFE, reemplazar valores en la plantilla y agregar la firma al CFE
 # NOTA: para verificar la firma usar la plantilla RSA para KeyInfo (comentado)
-vars = xmlsec.rsa_sign(cfe.as_xml(), '', "no_encriptada.key", "password",
+vars = xmlsec.rsa_sign(cfe.as_xml(), '', "private.key", "password",
                        sign_template=plantilla.as_xml(), c14n_exc=False,
                        cert="".join(cert_lines),
                        key_info_template=xmlsec.KEY_INFO_X509_TMPL,

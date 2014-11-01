@@ -51,14 +51,14 @@ client = SoapClient(LOCATION, ACTION,
 param = SimpleXMLElement(
     """<dgi:WS_PersonaGetActEmpresarial.Execute xmlns:dgi="DGI_Modernizacion_Consolidado" />""", 
     namespace="DGI_Modernizacion_Consolidado", prefix="dgi")
-rut = param.add_child("Rut", "21047573001133", ns=True)
+rut = param.add_child("Rut", "210475730011", ns=True)
 
 # agregar seguridad WSSE (mensaje firmado digitalmente para autenticacion)
 #     usar el certificado unico asociado al RUT emisor emitidos por la 
 #     Administración Nacional de Correos (CA: autoridad certificadora actual)
 
-plugin = BinaryTokenSignature(certificate="zunimercado.crt",
-                              private_key="no_encriptada.key", 
+plugin = BinaryTokenSignature(certificate="certificado.crt",
+                              private_key="private.key", 
                               password=None,
                               cacert="CorreoUruguayoCA.crt",
                               )
@@ -73,6 +73,17 @@ ret = client.call("AWS_PERSONAGETACTEMPRESARIAL.Execute", param)
 # TODO: revisar que el certificado de la respuesta sea de DGI (ambiente ok):
 #  * RUT 219999830019 en pruebas, RUT 214844360018 en producción
 
+# Para el caso del web service de Prueba, si el Rut a consultar 
+# no es uno de la lista predefinida: 
+# [219000090011, 219999820013, 219999830019, 211428940011, 
+#  210475730011, 210465050018, 210154140015, 210094030014] 
+# se obiene un error del tipo:
+#... <Respuesta>
+#       <Codigo>14</Codigo>
+#       <Descripcion>Error al consumir el Servicio Web</Descripcion>
+#       <Detalle>RUT no disponible para pruebas</Detalle>
+#   </Respuesta>...
+
 # extraer la respuesta (xml encapsulado)
 res = str(ret.Data)
 print res
@@ -86,7 +97,7 @@ print ret.NombreFantasia
 print ret.TipoEntidad
 print ret.DescripcionTipoEntidad
 print ret.EstadoActividad
-print ret.FechaInicioActividad
+print ret.FechaInicioActivdad
 for item in ret.WS_DomFiscalLocPrincipal:
     print item.Calle_Nom, item.Calle_id, item.Dom_Pta_Nro
     print item.Loc_Nom
