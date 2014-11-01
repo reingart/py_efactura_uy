@@ -98,8 +98,8 @@ data_in.add_child("xmlData", cdata, ns=True)
 #     usar el certificado unico asociado al RUT emisor emitidos por la 
 #     Administración Nacional de Correos (CA: autoridad certificadora actual)
 
-plugin = BinaryTokenSignature(certificate="zunimercado.crt",
-                              private_key="no_encriptada.key", 
+plugin = BinaryTokenSignature(certificate="certificado.crt",
+                              private_key="private.key", 
                               password=None,
                               cacert="CorreoUruguayoCA.crt",
                               )
